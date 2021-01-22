@@ -14,7 +14,7 @@ Do not care data categories when it loaded data, which is used in machine learni
 ## IaaS，PaaS，SaaS ？ 
 IaaS: Infrastructure as a Service PaaS: Platform as a Service SaaS: Software as a Service 
 ## The feature of DBMS: what is ACID ？ meaning？ 
-ACID(Atomicity, Consistency, Isolation, Isolation)
+ACID(Atomicity, Consistency, Isolation, Isolation)  
 Atomicity (Abort/commit) only have this two status, True or False. eg.  all the instructions within a transaction will successfully execute, or none of them will execute;  
 Consistency: The database must be consistent before and after the transaction;  
 Isolation: Multiple transactions occur independently without interference;  
