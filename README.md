@@ -33,10 +33,17 @@ Console access: Controlling user access to the AWS Management Console (AWS conso
 MFA: Multi-factor authentication, it use to increase the security of your AWS environments. Signing in to MFA-protected accounts requires a user name, password, and an authentication code from an MFA device.
 
 ## The type of permission policy? what does that present? what does least privillage?
-Permission policy has three kinds of types, predefined aws policy, customerised policy(by yourself) and inline policy(only use once).  
+Identity Based Permission: Permission policy has three kinds of types:  
+Predefined aws policy(management aws policy), can only be read. It cannot be modified.  
+Customerised policy(by yourself requirements to define a policy).  
+Inline policy(only use once, cannot be checked by other identity), 
 Least privillage: As a best practice, define permissions for only specific
 resources in specific accounts. Alternatively, you can grant least privilege
-using condition keys.
+using condition keys.  
+### Advanced permissions
+Resource based permission, eg. bucket permission with other services;  
+Session based permission, eg. visit a website with token based on session time;  
+
 
 ## Can I install database in S3?
 No. S3 bucket is not a file system. Everything in the S3 is seen as an object.
