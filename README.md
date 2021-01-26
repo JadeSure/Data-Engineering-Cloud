@@ -53,5 +53,81 @@ Key is an object name. s3 bucket is the unique domain name + file name.
 value is an object. Every file in the S3 is an object.
 
 ## Where can I implement S3 in Inmon and Kimball.
-In the OLTP data Sources part. Because S3 can be access easily without file size limitaion, which can be used to store the initial data from any source. Then, we can set an alert or lamda to reminder or automatic operation data processing in the next part.
+In the OLTP data Sources part. Because S3 can be access easily without file size limitaion, which can be used to store the initial(middle) data from any source. Then, we can set an alert or lambda to reminder or automatic operation data processing in the next part.
 
+## Implementation codes in EC2
+### connect to the ec2 server
+`ssh -i my-first-key-pair.pem ec2-user@ec2-3-25-179-100.ap-southeast-2.compute.amazonaws.com`
+
+### check ec2 describe (AWS command line)
+`aws ec2 describe-instances --region ap-southeast-2`
+
+### check aws configure
+`aws configure
+		- access key ID
+		- access key
+		- region name
+		- output formate`
+
+### check available s3 bucket
+`aws s3 ls`
+
+### copy files from s3 to EC2
+`aws s3 cp --recursive [name of bucket eg. s3://] [local address eg. /home/ec2-user]`
+
+### terminate your aws instance
+`aws ec2 terminate-instances --instance-ids [your id]`
+
+## The process of building a server host in the EC2?
+`sudo yum update
+sudo su
+yum update -y
+yum install httpd -y
+cd /var/www/html/
+vi index.html (edit in vim)
+service httpd start`
+
+## How many kinds of Load Balancer?
+• Application Load Balancer (http and https traffic): according the
+traffic load to leading different server(In the application layer, Layer 7).  
+• Network Load Balancer (TCP/UDP traffic): leading the traffic to the
+server which have higher capacity in the transfer layer (Layer 4),
+use for extreme performance.  
+• Classic Load Balancer: can use http/https and TCP traffic by X-Forwarded and sticky seesions.
+
+## What does X-Forwarded and sticky sessions?
+Due to internal servers they communicate with their private IP address(internal network),
+X-Forwarded helps the server when they need to identify the original
+request source (public IP address).  
+Known the original request source can help us to do some basic data
+analysis, such as geographic location or orgnasation’s name.  
+Sticky sessions: each request come from the same source can be hosted
+into the same server. Disadvantage: can cause load unbalanced because of keeping to connect to this server.
+
+## What is the risk of using aws configure to save credentials?
+For security reason, can not store credentials in ec2 instance, that will
+cause huge loss. Using roles in this way has several benefits. Because role
+credentials are temporary and rotated automatically, you don't have to
+manage credentials, and you don't have to worry about long-term
+security risks. In addition, if you use a single role for multiple instances,
+you can make a change to that one role and the change is propagated
+automatically to all the instances.
+
+## If it contains aws configure and EC2 instance role to access S3, which one has a higher priority?
+IAM role. When an IAM role is attached to the instance, the AWS CLI
+automatically and securely retrieves the credentials from the instance
+metadata.  
+Using roles to grant permissions to applications that run on EC2
+instances requires a bit of extra configuration. An application running on
+an EC2 instance is abstracted from AWS by the virtualized operating
+system. Because of this extra separation, an additional step is needed to
+assign an AWS role and its associated permissions to an EC2 instance and
+make them available to its applications. This extra step is the creation of
+an instance profile that is attached to the instance. The instance profile
+contains the role and can provide the role's temporary credentials to an
+application that runs on the instance. Those temporary credentials can
+then be used in the application's API calls to access resources and to
+limit access to only those resources that the role specifies. Note that
+only one role can be assigned to an EC2 instance at a time, and all
+applications on the instance share the same role and permissions.
+[reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html#roles-usingrole-ec2instance-permissions)
