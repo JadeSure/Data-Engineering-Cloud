@@ -44,16 +44,23 @@ using condition keys.
 Resource based permission, eg. bucket permission with other services;  
 Session based permission, eg. visit a website with token based on session time;  
 
+## Different between DATABASE and DBMS?
+DBMS: Database Management System. DBMS eg. mysql, mssql --> database： increase, delete, modify, query.
 
 ## Can I install database in S3?
-No. S3 bucket is not a file system. Everything in the S3 is seen as an object.
+No. S3 bucket is not a file system. Everything in the S3 is seen as an object.  
+S3 cannot be a database, but it can store data.
 
 ## What does key mean in S3? Value mean in S3?
 Key is an object name. s3 bucket is the unique domain name + file name.  
 value is an object. Every file in the S3 is an object.
 
 ## Where can I implement S3 in Inmon and Kimball.
-In the OLTP data Sources part. Because S3 can be access easily without file size limitaion, which can be used to store the initial(middle) data from any source. Then, we can set an alert or lambda to reminder or automatic operation data processing in the next part.
+Where Inmon and Kimball is a DBMS. structured data
+
+In the OLTP data Sources part. Because S3 can be access easily without file size limitaion, which can be used to store the initial(middle) data from any source. Then, we can set an alert or lambda to reminder or automatic operation data processing in the next part. Besides, it can store NoSQL data, such as video, audio, pictures...  
+another example, lambda read data from s3 --> save it into aws database
+Can store data rather than build database system in the S3.
 
 ## Implementation codes in EC2
 ### connect to the ec2 server
