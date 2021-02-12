@@ -86,8 +86,8 @@ Can store data rather than build database system in the S3.
 `aws ec2 terminate-instances --instance-ids [your id]`
 
 ## The process of building a server host in the EC2?
-`sudo yum update
-sudo su
+`sudo yum update  
+sudo su  
 yum update -y
 yum install httpd -y
 cd /var/www/html/
