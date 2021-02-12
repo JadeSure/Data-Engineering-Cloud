@@ -86,13 +86,15 @@ Can store data rather than build database system in the S3.
 `aws ec2 terminate-instances --instance-ids [your id]`
 
 ## The process of building a server host in the EC2?
-`sudo yum update`. 
-`sudo su`. 
-`yum update -y`. 
-`yum install httpd -y`. 
-`cd /var/www/html/`. 
-`vi index.html (edit in vim)`. 
-`service httpd start`. 
+```python
+sudo yum update
+sudo su
+yum update -y
+yum install httpd -y 
+cd /var/www/html/
+vi index.html (edit in vim)
+service httpd start
+```
 
 ## How many kinds of Load Balancer?
 • Application Load Balancer (http and https traffic): according the
