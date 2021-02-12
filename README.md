@@ -149,8 +149,8 @@ The code you run on AWS Lambda is called a “Lambda function.” After you crea
 When you do a recovery, AWS will first choose the most recent daily back up, and then apply transaction logs relevant to that to backup database. This allows you to do a point in time recovery down to a second,  within  the  retention period.
 
 ## Database encryption is used in which direction?
-transit: using SSL(Secure Socket Layer)
-rest: using AES-256 encryption
+transit: using SSL(Secure Socket Layer) (data is transited)
+rest: using AES-256 encryption (data is stored)
 
 ## The comparision with Multi-AZ and Read Replicas?
 Multi-AZ:  synchronized  database  in  another Availability Zone. For database failure **recovery** only.  
