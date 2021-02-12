@@ -146,13 +146,13 @@ AWS Lambda is a serverless compute service that runs your code in response to ev
 The code you run on AWS Lambda is called a “Lambda function.” After you create your Lambda function it is always ready to run as soon as it is triggered, similar to a formula in a spreadsheet. Each function includes your code as well as some associated configuration information, including the function name and resource requirements. Lambda functions are “stateless,” with no affinity to the underlying infrastructure, so that Lambda can rapidly launch as many copies of the function as needed to scale to the rate of incoming events.[reference](https://aws.amazon.com/lambda/features/#:~:text=AWS%20Lambda%20is%20a%20serverless,scale%2C%20performance%2C%20and%20security.) 
 
 ## What is the function of Database transaction log？
-When you do a recovery, AWS will first choose the most recent daily back up, and then apply transaction logs relevant to that to backup database. This allows you to do a point in time recovery down to a second,  within  the  retention period.
+When you do a recovery/data failed, AWS will first choose the most recent daily back up, and then apply transaction logs relevant to that to backup database. This allows you to do a point in time recovery down to a second,  within  the  retention period.
 
 ## Database encryption is used in which direction?
 transit: using SSL(Secure Socket Layer) (data is transited)
 rest: using AES-256 encryption (data is stored)
 
 ## The comparision with Multi-AZ and Read Replicas?
-Multi-AZ:  synchronized  database  in  another Availability Zone. For database failure **recovery** only.  
+Multi-AZ:  synchronized  database  in  another Availability Zone. For database failure **recovery** only. (eg. if the master does not crash, backup will never be used. otherwise, it will transfer automatically.)  
 Read Replicas: asynchronous for improving performance. Allow you to have a *read-only* copy of your production database. Use for read-heavy database workloads *(scaling)*.
 
