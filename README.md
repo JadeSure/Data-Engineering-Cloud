@@ -178,9 +178,9 @@ git pull origin master// updated the changes in remote main branch into local ma
 1. clone from github to local  
 2. create a new branch and modify everything in this branch  
 3. pull the newest github version in master  
-4. merge branch and main(master), if conflict, modify codes  
-5. add and comments change in local main  
-6. push into github master. (or push into branch, ask an admin to agree your merging process)
+5. add and comments change in local branch  
+6. go back to main, merge branch and main(master). If conflict, modify codes; (or push into branch, ask an admin to agree your merging process)   
+7. push into github master.
 
 ## What is the different between Batch Processing and Real Time Processing?
 Batch Processing: 
