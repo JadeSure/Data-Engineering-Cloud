@@ -1,19 +1,19 @@
 # Data-Engineering-Cloud
 
-## What's different between two models: Inmon and Kimball？ 
+## Day1 What's different between two models: Inmon and Kimball？ 
 Inmon model needs a long term to build the system from different data source (OLTP) to create data warehouse, which can be used by different department(data mart) to use the model.
 drawback: 
 Kimball model based on application to look for needed data from data source. more dynamic.
 ## OLTP and OLAP？
 OLTP: Online Transaction Processing, for RDBMS: increase, modify, delete, check(search)
 OLAP: On-Line Analytical Processing, for Data warehouse
-## data mart?
+## Data mart?
 prepared the data for relative applications, which will be used directly.
 ## What does Data Lake mean？
 Do not care data categories when it loaded data, which is used in machine learning. 
 ## IaaS，PaaS，SaaS ？ 
 IaaS: Infrastructure as a Service PaaS: Platform as a Service SaaS: Software as a Service 
-## The feature of DBMS: what is ACID ？ meaning？ 
+## The feature of DBMS: what is ACID？ meaning？ 
 ACID(Atomicity, Consistency, Isolation, Isolation)  
 Atomicity (Abort/commit) only have this two status, True or False. eg.  all the instructions within a transaction will successfully execute, or none of them will execute;  
 Consistency: The database must be consistent before and after the transaction;  
@@ -30,6 +30,8 @@ Enables an access key ID and secret access key for the AWS API, CLI, SDK, and ot
 
 ## what does console access? the function of MFA?
 Console access: Controlling user access to the AWS Management Console (AWS console login);
+
+
 MFA: Multi-factor authentication, it use to increase the security of your AWS environments. Signing in to MFA-protected accounts requires a user name, password, and an authentication code from an MFA device.
 
 ## The type of permission policy? what does that present? what does least privillage?
@@ -44,7 +46,7 @@ using condition keys.
 Resource based permission, eg. bucket permission with other services;  
 Session based permission, eg. visit a website with token based on session time;  
 
-## Different between DATABASE and DBMS?
+## Day2 Different between DATABASE and DBMS?
 DBMS: Database Management System. DBMS eg. mysql, mssql --> database： increase, delete, modify, query.
 
 ## Can I install database in S3?
@@ -141,7 +143,7 @@ only one role can be assigned to an EC2 instance at a time, and all
 applications on the instance share the same role and permissions.
 [reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html#roles-usingrole-ec2instance-permissions)
 
-## What are the characteristics of lambda？
+## Day3 What are the characteristics of lambda？
 AWS Lambda is a serverless compute service that runs your code in response to events and automatically manages the underlying compute resources for you. You can use AWS Lambda to extend other AWS services with custom logic, or create your own back-end services that operate at AWS scale, performance, and security.  
 The code you run on AWS Lambda is called a “Lambda function.” After you create your Lambda function it is always ready to run as soon as it is triggered, similar to a formula in a spreadsheet. Each function includes your code as well as some associated configuration information, including the function name and resource requirements. Lambda functions are “stateless,” with no affinity to the underlying infrastructure, so that Lambda can rapidly launch as many copies of the function as needed to scale to the rate of incoming events.[reference](https://aws.amazon.com/lambda/features/#:~:text=AWS%20Lambda%20is%20a%20serverless,scale%2C%20performance%2C%20and%20security.) 
 
@@ -155,4 +157,44 @@ rest: using AES-256 encryption (data is stored)
 ## The comparision with Multi-AZ and Read Replicas?
 Multi-AZ:  synchronized  database  in  another Availability Zone. For database failure **recovery** only. (eg. if the master does not crash, backup will never be used. otherwise, it will transfer automatically.)  
 Read Replicas: asynchronous for improving performance. Allow you to have a *read-only* copy of your production database. Use for read-heavy database workloads *(scaling)*.
+
+## Day4 Please list the local development process by steps, use github to control code and repository. Begin from git clone
+```python
+git clone git@github.com:JadeSure/Data-Engineering-Cloud.git
+git branch dwh // create a new branch, named dwh
+git checkout dwh // change to the new branch, dwh
+git status // check is any changed in this branch
+git add test.py // add changed file to index
+git commit -m 'message'//commit changes in Index
+git checkout master // switch to the master branch first
+git merge dwh -m 'message' // merge dwhbranch back to master branch
+git status // check is any changed in this branch
+git add test.py // add changed file to index
+git commit -m 'message'//commit changes in Index
+git push --set-upstream origin master // push the change into remote repositoryin github webpage create a pull request
+git branch -d dwh // delete the feature branch which is already merged into the remote main branch
+git pull origin master// updated the changes in remote main branch into local main branch
+```
+1. clone from github to local  
+2. create a new branch and modify everything in this branch  
+3. pull the newest github version in master  
+4. merge branch and main(master), if conflict, modify codes  
+5. add and comments change in local main  
+6. push into github master. (or push into branch, ask an admin to agree your merging process)
+
+## What is the different between Batch Processing and Real Time Processing?
+Batch Processing: 
+• **blocks of data** that have already been stored over a period of time.  
+• to process **large volumes** of data to get **more detailed insights** than it is to get fast analytics results.  
+• provides the modeling-ready data for **machine learning**, or writes the data to a data store that is optimized for **analytics and visualization**.  
+
+Real Time Processing:  
+• deals with streams of data that are captured in  real-time and processed with **minimal latency** to generate real-time (or  near-real-time) reports or automated responses.   
+• typically arrives in an **unstructured or semi-structured format**, such as JSON, and has the same processing requirements as batch processing, but with shorter turnaround times to support real-time consumption.
+
+## What does Data Extraction/Ingestion? Direction?
+• Pull/push the data: push by client to our server or pull from client by sftp, ftp, API...  
+• Landing server mechanism: a middle layer between data input source and ETL process to reduce input complexity.(less firewall, NCAL, security group; 1 to M)  
+• Basic data information check: jump footer and header lines; EOT(end of transferring) to show that this file has been finished transferring.  
+• Key points, such as file format, file layout, file encoding, file delimiter and so forth.
 
