@@ -202,7 +202,7 @@ Real Time Processing:
 **Fundamental Concepts**  
 **Basic Dimension Table Techniques**  
 **Basic Fact Table Techniques**  
-**Slowly Changing Dimension Techniques**
+**Slowly Changing Dimension Techniques(SCD)**
 ## Fundamental Concepts
 1. Gather business requirements and data realities: understand the needs of business and the realities of the underlying source data, and data realities are uncovered by meeting with source system experts and doing high-level data profiling to assess data feasibilities.  
 2. Collaborative dimensional modeling workshops: blueprint  
@@ -212,8 +212,18 @@ Real Time Processing:
 • Identify the dimensions
 • Indentify the facts
 5. Business process: operational activities performed by your organization.(a specific design target, grain...)  
-6. Grain: levels at which facts at measured (keep the lowest possible grain, the grain must be declared before choosing dimensions or facts every candidate dimension or fact must be consistent with the grain)  
-7. Dimensions for descriptive context
-8. Facts for measurements
-9. Star schemas and OLAP cubes
-10. Graceful extensions to dimensional models
+6. Grain: levels at which facts at measured (keep the lowest possible grain, the grain must be declared before choosing dimensions or facts every candidate dimension or fact must be consistent with the grain) eg. city, suburb, town...  
+7. Dimensions for descriptive context: contain the entry points and descriptive labels that enable the DW/BI system to be leveraged for business analysis. provides (who, what, where, when, why and how)  
+8. Facts for measurements: based on a business process event for numeric. eg. the quantity of a product sold by windows function, aggregation.  
+10. Star schemas and OLAP cubes: consist of fact tables linked to associated dimension table via primary/foreign ky relationships.  
+11. Graceful extensions to dimensional models: dimensions can be added to an existing fact table by creating new foreign key columns, presuming they do not alter the fact table's grain; Attributes can be added to an existing dimension table.  
+
+## Basic Dimension Table Techniques
+
+## Basic Fact Table Techniques
+
+## Slowly Changing Dimension Techniques
+1. Type1: Sometimes: modify directly in the original table (overwrite);  
+2. Type2: Frequently: add a transaction and modify effective date;  
+3. Type3: Rarely: type1 + type2 (less use)
+4. Type4: Mini dimension: 
