@@ -198,3 +198,22 @@ Real Time Processing:
 • Basic data information check: jump footer and header lines; EOT(end of transferring) to show that this file has been finished transferring.  
 • Key points, such as file format, file layout, file encoding, file delimiter and so forth.
 
+## Day5 Data Warehouse: a historical version of transactional database
+**Fundamental Concepts**  
+**Basic Dimension Table Techniques**  
+**Basic Fact Table Techniques**  
+**Slowly Changing Dimension Techniques**
+## Fundamental Concepts
+1. Gather business requirements and data realities: understand the needs of business and the realities of the underlying source data, and data realities are uncovered by meeting with source system experts and doing high-level data profiling to assess data feasibilities.  
+2. Collaborative dimensional modeling workshops: blueprint  
+3. Four step dimensional design process
+• Select the business process  
+• Declare the grain  
+• Identify the dimensions
+• Indentify the facts
+5. Business process: operational activities performed by your organization.(a specific design target, grain...)  
+6. Grain: levels at which facts at measured (keep the lowest possible grain, the grain must be declared before choosing dimensions or facts every candidate dimension or fact must be consistent with the grain)  
+7. Dimensions for descriptive context
+8. Facts for measurements
+9. Star schemas and OLAP cubes
+10. Graceful extensions to dimensional models
