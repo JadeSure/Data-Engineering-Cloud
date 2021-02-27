@@ -219,8 +219,65 @@ Real Time Processing:
 11. Graceful extensions to dimensional models: dimensions can be added to an existing fact table by creating new foreign key columns, presuming they do not alter the fact table's grain; Attributes can be added to an existing dimension table.  
 
 ## Basic Dimension Table Techniques
+• Dimension table structure  
+• Dimension surrogate keys  
+• Natural, durable and supernatural keys  
+• Drilling down  
+• Degenerate dimensions  
+• Denormalized flattened dimensions  
+• Multiple hierarchies in dimensions  
+• Flags and indicators as dimension attributes  
+• Null attributes in dimensions  
+• Calendar date dimension  
+• Role playing dimensions  
+• Junk dimensions  
+• Snowflaked dimensions  
+• Outrigger dimensions
+#### Dimension table structure
+Every dimension table has a single primary key column, which is embedded as a foreign key in any associated fact table.  
+Dimension tables are usually wide. With the Star Schema.
+
+#### Dimension surrogate keys
+The dimension surrogate keys are simple integers, assigned in sequence, starting with value 1, every time a new key is needed.  
+The date dimensions exempt from the surrogate key rule; this highly predictable and stable dimension can use a more meaningful primary key.  
+
+#### Natural, durable and supernatural keys
+natural key(business key): created by os system based on business rules;  
+durable key(durable supernatural key): won't change (eg. old customer come back) should be independent of the original business process and should be simple integers assigned in sequence beginning with 1.   
+
+#### Drilling down
+group by expression
+
+#### Degenerate dimensions
+do not need atomic (3NF is enough).  
+The degenerated dimension is placed in the fact table with the explicit acknowledgment that there is no associated dimension table.(two simple do not need to extend)
+
+#### Denormalled flattened dimensions
+merge more dimensions to 1(they have surrogate keys with each other)
+
+#### Multiple hierarchies in dimensions
+calendar date dimension: day, month, year...
+
+#### Flags and indicators as dimension attributes
+Cryptic abbreviations as true/false flags.
+#### Calendar date dimension
+do not need surrogate key, date can be a primary key ==? to metadata
+
+#### Outrigger dimensions
+with dimensions and subdimension....
 
 ## Basic Fact Table Techniques
+• Fact table structure  
+• Additive, semi-additive, and non-additive facts  
+• Nulls in fact tables  
+• Conformed facts  
+• Transaction fact tables  
+• Periodic snapshot fact tables  
+• Factless fact tables  
+• Aggregated fact tables or cubes
+• Consolidated fact tables
+
+
 
 ## Slowly Changing Dimension Techniques
 1. Type1: Sometimes: modify directly in the original table (overwrite);  
