@@ -204,7 +204,7 @@ Real Time Processing:
 **Basic Fact Table Techniques**  
 **Slowly Changing Dimension Techniques(SCD)**
 ## Fundamental Concepts
-1. Gather business requirements and data realities: understand the needs of business and the realities of the underlying source data, and data realities are uncovered by meeting with source system experts and doing high-level data profiling to assess data feasibilities.  
+1. Gather requirements and data realities: understand the needs of business and the realities of the underlying source data, and data realities are uncovered by meeting with source system experts and doing high-level data profiling to assess data feasibilities.  
 2. Collaborative dimensional modeling workshops: blueprint  
 3. Four step dimensional design process
 • Select the business process  
@@ -243,10 +243,10 @@ The date dimensions exempt from the surrogate key rule; this highly predictable 
 
 #### Natural, durable and supernatural keys
 natural key(business key): created by os system based on business rules;  
-durable key(durable supernatural key): won't change (eg. old customer come back) should be independent of the original business process and should be simple integers assigned in sequence beginning with 1.   
+durable key(supernatural key): won't change (eg. old customer come back) should be independent of the original business process and should be simple integers assigned in sequence beginning with 1.   
 
 #### Drilling down
-group by expression
+adding a row header to an existing query; the new row header is a dimension attribute appended to the GROUP BY expression in an SQL query;
 
 #### Degenerate dimensions
 do not need atomic (3NF is enough).  
@@ -256,15 +256,28 @@ The degenerated dimension is placed in the fact table with the explicit acknowle
 merge more dimensions to 1(they have surrogate keys with each other)
 
 #### Multiple hierarchies in dimensions
-calendar date dimension: day, month, year...
+calendar date dimension: day, month, year... or region, state, district, city...  
 
 #### Flags and indicators as dimension attributes
-Cryptic abbreviations as true/false flags.
+Cryptic abbreviations as true/false, yes/no flags to 1/0.
+
+#### Null attributes in dimesnion
+do not leval 'Null' in here, which may make a misunderstanding; leave unknown or not applicable.
+
 #### Calendar date dimension
 do not need surrogate key, date can be a primary key ==? to metadata
 
+#### Role playing dimensions
+a single physical dimension can be referenced multiple times in a fact table, with each reference linking to a logically distinct role for the dimension.
+
+#### Junk dimensions
+for too many 'join' to different similar tables, which can be used to combine together to avoid meaningless joins. eg. 3, 3, 3 tables and then combine it to 3*3*3 to 27 rows one table.
+
+#### Snowflaked dimensions
+multiple hierarchy with including each other (not recommend)
+
 #### Outrigger dimensions
-with dimensions and subdimension....
+with dimensions and subdimension (one layer extension)....
 
 ## Basic Fact Table Techniques
 • Fact table structure  
@@ -277,10 +290,50 @@ with dimensions and subdimension....
 • Aggregated fact tables or cubes
 • Consolidated fact tables
 
+#### Fact table structure  
+Contains many dimension key(forign key for the dimension table) and also include fact information.
+#### Additive, semi-additive, and non-additive facts 
+additive: can be added (sum up)    
+semi-additive: not sure numerical value can be sumed. eg. shop1 and shop2(1 updated but another one not) for the current semi-additive.  
+non-additive: eg. non-additive
 
+#### Nulls in fact tables  
+no null; replace it with 0, N/A...
+#### Conformed facts  
+they can share the same dimensions...
+#### Transaction fact tables  
+only additive; injection and append.
+#### Periodic snapshot fact tables 
+Sales in a period for the fact tables
+
+#### Accumulating snapshot fact tables
+Consuming periodically/customer life cycle
+
+#### Factless fact tables 
+no transaction (rarely use)
+#### Aggregated fact tables or cubes
+make a summary based on a certain fact
+#### Consolidated fact tables
+combine relative fact tables together to get a consolidated fact table.
 
 ## Slowly Changing Dimension Techniques
 1. Type1: Sometimes: modify directly in the original table (overwrite);  
 2. Type2: Frequently: add a transaction and modify effective date;  
 3. Type3: Rarely: type1 + type2 (less use)
 4. Type4: Mini dimension: 
+
+## Advanced Fact table
+#### Fact table with surrogate key (rarely use)
+fact table do not have primary key(all is foreign key) ps: multi foreign key can become a primary key.
+
+#### Numeric values as attriutes or facts
+put numeric value to a range(band)
+
+#### Header/line fact tables
+for retail, eg. order ID with multi transaction ID (children)  
+
+#### Profit and loss fact tables using allocations
+profit = revenue - cost
+
+#### Multiple currency facts
+tracking multiple currencies with a daily currency 
